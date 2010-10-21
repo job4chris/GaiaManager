@@ -1586,6 +1586,8 @@ int main(int argc, char *argv[])
 
 			if (dialog_ret == 1) {
 				int n;
+				snprintf(filename, sizeof(filename), "/dev_hdd0/%s", COVERS_DIR);
+				mkdir(filename, S_IRWXO | S_IRWXU | S_IRWXG | S_IFDIR);
 				for (n = 0; n < max_menu_list; n++) {
 					struct stat s;
 					snprintf(filename, sizeof(filename), "/dev_hdd0/%s/%s.PNG", COVERS_DIR, menu_list[n].title_id);
@@ -1593,6 +1595,8 @@ int main(int argc, char *argv[])
 						continue;
 
 					download_cover(menu_list[n].title_id, filename);
+					// reset to update datas
+					reset_game_list(1, 0);
 				}
 			}
 		}
